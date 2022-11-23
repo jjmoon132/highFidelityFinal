@@ -1,0 +1,14 @@
+body {
+    font-family: "Lato", sans-serif;
+    background-color: #fafafa;
+    padding: 20px;
+  }
+  
+  hr {
+    border: none;
+    border-top: 3px double #000000;
+    color: #000000;
+    overflow: visible;
+    text-align: center;
+  }
+  

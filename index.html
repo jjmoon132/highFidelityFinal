@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Final Project</title>
+    <meta charset="utf-8" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css"
+    />
+
+    <link rel="stylesheet" href="/style.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.6.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Exploring Demographic Trends of COVID-19 in the United States</h2>
+      <h4>By: Abby Goodwin, Owen Flanagan, Jay Moon</h4>
+      <hr />
+      <p>
+        Here we can observe the weekly trend in COVID-19 cases across the United
+        States from January 2020 to present. <br />Brush over a portion of the
+        line chart for a closer look at the data in the form of a bar chart.
+      </p>
+      <div id="vis1"></div>
+      <hr />
+      <p>
+        The line chart below shows the cumulative COVID-19 cases in the state of
+        Massachusetts from January 2020 to present. <br />
+        Hover over the line to see the exact quantity of cases week by week.
+      </p>
+      <div id="vis2"></div>
+      <hr />
+      <p>
+        Going back to the national scale, we are now going to observe the
+        demographic trends of COVID-19 cases and deaths in the United States.
+      </p>
+      <!-- <label for="charts">Select Aggregation</label>
+
+        <select name="charts" id="charts">
+            <option value="age">Age</option>
+            <option value="race">Race/Ethnicity</option>
+            <option value="sex">Sex</option>
+        </select>
+    <div id="ageChart">
+
+    </div> -->
+    <br>
+      <p>
+        First, we observe the distribution of cases among different age groups.
+        The bar charts shows the percent of cases alongside the percent of the
+        U.S. population.
+      </p>
+      <div id="vis3"></div>
+      <div id="vis4"></div>
+      <hr />
+      <p>
+        Next, we observe the distribution of cases among different
+        race/ethnicity groups. The bar charts shows the percent of cases
+        alongside the percent of the U.S. population.
+      </p>
+
+      <div id="vis5"></div>
+      <div id="vis6"></div>
+      <hr />
+      <p>
+        Lastly, we see the distribution of cases among different sexes. The pie
+        charts shows the percentages of cases and deaths that have impacted
+        different sexes.
+      </p>
+      <div class="row">
+        <div class="column">
+          <div id="vis7"></div>
+        </div>
+        <div class="column">
+          <div id="vis8"></div>
+        </div>
+      </div>
+
+      <script>
+        var vlSpec1 = {
+          $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+          data: {
+            url: "https://raw.githubusercontent.com/agoodwin4/vis-data/main/data_table_for_weekly_case_trends__the_united_states.csv",
+          },
+          vconcat: [
+            {
+              params: [
+                {
+                  name: "brush",
+                  select: { type: "interval", "encodings": ["x"]},
+                  
+                },
+              ],
+              width: 760,
+              height: 400,
+              title: "Weekly COVID-19 Cases in the United States",
+              data: {
+                url: "https://raw.githubusercontent.com/agoodwin4/vis-data/main/data_table_for_weekly_case_trends__the_united_states.csv",
+              },
+              mark: {
+                type: "area",
+                tooltip: true,
+                line: {
+                  color: "darkblue",
+                },
+                color: {
+                  x1: 1,
+                  y1: 1,
+                  x2: 1,
+                  y2: 0,
+                  gradient: "linear",
+                  stops: [
+                    {
+                      offset: 0,
+                      color: "white",
+                    },
+                    {
+                      offset: 1,
+                      color: "darkblue",
+                    },
+                  ],
+                },
+              },
+              encoding: {
+                x: {
+                  field: "Date",
+                  type: "temporal",
+                },
+                y: {
+                  field: "Weekly Cases",
+                  type: "quantitative",
+                },
+              },
+            },
+            {
+              transform: [
+                {
+                  filter: { param: "brush" },
+                },
+              ],
+              width: 760,
+              height: 300,
+              data: {
+                url: "https://raw.githubusercontent.com/agoodwin4/vis-data/main/data_table_for_weekly_case_trends__the_united_states.csv",
+              },
+              mark: { type: "bar", tooltip: true },
+              encoding: {
+                x: {
+                  field: "Date",
+                  type: "temporal",
+                },
+                y: { field: "Weekly Cases", type: "quantitative" },
+              },
+            },
+          ],
+        };
+        vegaEmbed("#vis1", vlSpec1);
+      </script>
+
+      <script>
+        var vlSpec2 = {
+          $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+          width: 760,
+          height: 400,
+          title: "Cumulative COVID-19 Cases in Massachusetts",
+          data: {
+            url: "https://raw.githubusercontent.com/agoodwin4/vis-data/main/data_table_for_total_cases__massachusetts.csv",
+          },
+          mark: {
+            type: "area",
+            tooltip: true,
+            line: {
+              color: "darkblue",
+            },
+            color: {
+              x1: 1,
+              y1: 1,
+              x2: 1,
+              y2: 0,
+              gradient: "linear",
+              stops: [
+                {
+                  offset: 0,
+                  color: "white",
+                },
+                {
+                  offset: 1,
+                  color: "darkblue",
+                },
+              ],
+            },
+          },
+          encoding: {
+            x: {
+              field: "Date",
+              type: "temporal",
+            },
+            y: {
+              field: "Total Cases",
+              type: "quantitative",
+            },
+          },
+        };
+        vegaEmbed("#vis2", vlSpec2);
+      </script>
+
+      <script>
+        var vlSpec3 = {
+          $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+          width: 800,
+          height: 300,
+          title: "COVID-19 Cases by Age Group",
+          data: {
+            url: "https://raw.githubusercontent.com/agoodwin4/vis-data/main/cases_by_age_group.csv",
+          },
+          repeat: { layer: ["Percent of cases", "Percent of US population"] },
+          spec: {
+            mark: { type: "bar", tooltip: true },
+            encoding: {
+              x: {
+                field: "Age Group",
+                type: "nominal",
+              },
+              y: {
+                field: { repeat: "layer" },
+                type: "quantitative",
+                title: "Percent",
+              },
+              color: { datum: { repeat: "layer" } },
+              xOffset: { datum: { repeat: "layer" } },
+            },
+          },
+          config: {
+            mark: { invalid: null },
+          },
+        };
+        vegaEmbed("#vis3", vlSpec3);
+      </script>
+
+      <script>
+        var vlSpec4 = {
+          $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+          width: 800,
+          height: 300,
+          title: "COVID-19 Deaths by Age Group",
+          data: {
+            url: "https://raw.githubusercontent.com/agoodwin4/vis-data/main/deaths_by_age_group.csv",
+          },
+          repeat: {
+            layer: ["Percentage of deaths", "Percent of US population"],
+          },
+          spec: {
+            mark: { type: "bar", tooltip: true },
+            encoding: {
+              x: {
+                field: "Age Group",
+                type: "nominal",
+              },
+              y: {
+                field: { repeat: "layer" },
+                type: "quantitative",
+                title: "Percent",
+              },
+              color: { datum: { repeat: "layer" } },
+              xOffset: { datum: { repeat: "layer" } },
+            },
+          },
+          config: {
+            mark: { invalid: null },
+          },
+        };
+        vegaEmbed("#vis4", vlSpec4);
+      </script>
+
+      <script>
+        var vlSpec5 = {
+          $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+          width: 800,
+          height: 300,
+          title: "COVID-19 Cases by Race/Ethnicity",
+          data: {
+            url: "https://raw.githubusercontent.com/agoodwin4/vis-data/main/cases_by_race_ethnicity__all_age_groups.csv",
+          },
+          repeat: { layer: ["Percent of cases", "Percent of US population"] },
+          spec: {
+            mark: { type: "bar", tooltip: true },
+            encoding: {
+              x: {
+                field: "Race/Ethnicity",
+                type: "nominal",
+                axis: { labelAngle: 340, labelFontSize: 8 },
+              },
+              y: {
+                field: { repeat: "layer" },
+                type: "quantitative",
+                title: "Percent",
+              },
+              color: { datum: { repeat: "layer" } },
+              xOffset: { datum: { repeat: "layer" } },
+            },
+          },
+          config: {
+            mark: { invalid: null },
+          },
+        };
+        vegaEmbed("#vis5", vlSpec5);
+      </script>
+
+      <script>
+        var vlSpec6 = {
+          $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+          width: 800,
+          height: 300,
+          title: "COVID-19 Deaths by Race/Ethnicity",
+          data: {
+            url: "https://raw.githubusercontent.com/agoodwin4/vis-data/main/deaths_by_race_ethnicity__all_age_groups.csv",
+          },
+          repeat: { layer: ["Percent of deaths", "Percent of US population"] },
+          spec: {
+            mark: { type: "bar", tooltip: true },
+            encoding: {
+              x: {
+                field: "Race/Ethnicity",
+                type: "nominal",
+                axis: { labelAngle: 340, labelFontSize: 8 },
+              },
+              y: {
+                field: { repeat: "layer" },
+                type: "quantitative",
+                title: "Percent",
+              },
+              color: { datum: { repeat: "layer" } },
+              xOffset: { datum: { repeat: "layer" } },
+            },
+          },
+          config: {
+            mark: { invalid: null },
+          },
+        };
+        vegaEmbed("#vis6", vlSpec6);
+      </script>
+
+      <script>
+        var vlSpec7 = {
+          $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+          title: "COVID-19 Cases in the U.S. by Sex",
+          width: 350,
+          height: 400,
+          data: {
+            url: "https://raw.githubusercontent.com/agoodwin4/vis-data/main/cases_by_sex__all_age_groups.csv",
+          },
+          mark: { type: "arc", tooltip: true },
+          encoding: {
+            theta: { field: "Percent of cases", type: "quantitative" },
+            color: { field: "Sex", type: "nominal" },
+          },
+        };
+        vegaEmbed("#vis7", vlSpec7);
+      </script>
+
+      <script>
+        var vlSpec8 = {
+          $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+          title: "COVID-19 Deaths in the U.S. by Sex",
+          width: 350,
+          height: 400,
+          data: {
+            url: "https://raw.githubusercontent.com/agoodwin4/vis-data/main/deaths_by_sex__all_age_groups.csv",
+          },
+          mark: { type: "arc", tooltip: true },
+          encoding: {
+            theta: { field: "Percentage of deaths", type: "quantitative" },
+            color: { field: "Sex", type: "nominal" },
+          },
+        };
+        vegaEmbed("#vis8", vlSpec8);
+      </script>
+    </div>
+  </body>
+</html>
