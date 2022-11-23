@@ -12,3 +12,35 @@ body {
     text-align: center;
   }
   
+  #ageChart{
+   display: none;
+  }
+
+  #raceChart{
+    display: none;
+  }
+  #sexChart{
+    display: none;
+  }
+  .column {
+    float: left;
+    padding: 10px;
+  }
+  
+  .left {
+    width: 50%;
+    /*background-color:#aaa;*/
+    padding-left: 50px;
+  }
+  
+  .right {
+    width: 50%;
+   /* background-color:#bbb*/
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }

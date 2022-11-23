@@ -4,10 +4,11 @@
     <title>Final Project</title>
     <meta charset="utf-8" />
 
-    <link
+     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic"
     />
+    
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"
@@ -15,9 +16,12 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css"
-    />
+    /> 
 
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="style.css" />
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
+    <script defer src="script.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.6.0"></script>
@@ -46,47 +50,52 @@
         Going back to the national scale, we are now going to observe the
         demographic trends of COVID-19 cases and deaths in the United States.
       </p>
-      <!-- <label for="charts">Select Aggregation</label>
+      <label for="chartSelect">Select Aggregation</label>
 
-        <select name="charts" id="charts">
-            <option value="age">Age</option>
-            <option value="race">Race/Ethnicity</option>
-            <option value="sex">Sex</option>
+        <select name="chartSelect" id="chartSelect">
+            <option value="default">default</option>
+            <option value="age" >Age</option>
+            <option value="race" >Race/Ethnicity</option>
+            <option value="sex" >Sex</option>
         </select>
     <div id="ageChart">
-
-    </div> -->
-    <br>
-      <p>
-        First, we observe the distribution of cases among different age groups.
-        The bar charts shows the percent of cases alongside the percent of the
-        U.S. population.
-      </p>
-      <div id="vis3"></div>
-      <div id="vis4"></div>
-      <hr />
-      <p>
-        Next, we observe the distribution of cases among different
-        race/ethnicity groups. The bar charts shows the percent of cases
-        alongside the percent of the U.S. population.
-      </p>
-
-      <div id="vis5"></div>
-      <div id="vis6"></div>
-      <hr />
-      <p>
-        Lastly, we see the distribution of cases among different sexes. The pie
-        charts shows the percentages of cases and deaths that have impacted
-        different sexes.
-      </p>
-      <div class="row">
-        <div class="column">
-          <div id="vis7"></div>
+        <p>
+            First, we observe the distribution of cases among different age groups.
+            The bar charts shows the percent of cases alongside the percent of the
+            U.S. population.
+          </p>
+          <div id="vis3"></div>
+          <div id="vis4"></div>
+          <hr />
+    </div>
+    <div id="raceChart">
+        <p>
+            Next, we observe the distribution of cases among different
+            race/ethnicity groups. The bar charts shows the percent of cases
+            alongside the percent of the U.S. population.
+          </p>
+    
+          <div id="vis5"></div>
+          <div id="vis6"></div>
+          <hr />
+    </div>
+    <div id="sexChart">
+        <p>
+            Lastly, we see the distribution of cases among different sexes. The pie
+            charts shows the percentages of cases and deaths that have impacted
+            different sexes.
+          </p>
+        <div class="row">
+            <div class="column">
+              <div id="vis7"></div>
+            </div>
+            <div class="column">
+              <div id="vis8"></div>
+            </div>
         </div>
-        <div class="column">
-          <div id="vis8"></div>
-        </div>
-      </div>
+        <hr />
+
+    </div>
 
       <script>
         var vlSpec1 = {

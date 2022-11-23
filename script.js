@@ -20,6 +20,30 @@ if (btn) {
   };
 }
 
+let choice = d3.select("#chartSelect").node().value;
+
+
+d3.select("#chartSelect")
+	.on("change", function change(){
+        console.log("YOO")
+		choice = d3.select('#chartSelect').node().value;
+        document.getElementById("ageChart").style.display = "none";
+        document.getElementById("raceChart").style.display = "none";
+        document.getElementById("sexChart").style.display = "none";
+        console.log(choice)
+        if (choice == "age"){
+            document.getElementById("ageChart").style.display = "block";
+        }
+        if (choice == "race"){
+            document.getElementById("raceChart").style.display = "block";
+        }
+        if (choice == "sex"){
+            document.getElementById("sexChart").style.display = "block";
+        }
+});
+
+
+
 // This is a single line JS comment
 /*
 This is a comment that can span multiple lines 
